@@ -1,88 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fihirana Playlist</title>
+
     <style>
+        :root {
+            /* Primary */
+            --md-primary: #4f15ec;
+            --md-on-primary: #ffffff;
+            --md-primary-container: #eaddff;
+            --md-on-primary-container: #21005d;
+
+            /* Secondary */
+            --md-secondary: #5914ee;
+            --md-on-secondary: #ffffff;
+            --md-secondary-container: #e8def8;
+            --md-on-secondary-container: #1d192b;
+
+            /* Tertiary */
+            --md-tertiary: #7d5260;
+            --md-on-tertiary: #ffffff;
+            --md-tertiary-container: #ffd8e4;
+            --md-on-tertiary-container: #31111d;
+
+            /* Surfaces */
+            --md-surface: #fffbfe;
+            --md-surface-variant: #e7e0ec;
+            --md-on-surface: #1c1b1f;
+            --md-outline: #79747e;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
-            padding: 20px;
+            background: var(--md-surface-variant);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--md-on-surface);
+            padding: 16px;
         }
+
         .container {
-            max-width: 500px;
+            width: 100%;
+            max-width: 420px;
+            background: var(--md-surface);
+            border-radius: 28px;
+            padding: 32px 24px;
+            box-shadow:
+                0 1px 2px rgba(0, 0, 0, 0.08),
+                0 4px 12px rgba(0, 0, 0, 0.12);
+            text-align: center;
         }
-        h1 {
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
+
         .icon {
-            font-size: 4em;
-            margin-bottom: 20px;
+            font-size: 3.5rem;
+            margin-bottom: 16px;
         }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 0 0 12px;
+        }
+
         .message {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            opacity: 0.9;
+            font-size: 1rem;
+            color: #49454f;
+            margin-bottom: 24px;
         }
+
         .button {
-            display: inline-block;
-            padding: 15px 30px;
-            background: white;
-            color: #667eea;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 48px;
+            padding: 0 24px;
+            border-radius: 24px;
+            font-size: 0.95rem;
+            font-weight: 500;
             text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.1em;
-            margin: 10px;
-            transition: transform 0.2s;
+            cursor: pointer;
+            transition: box-shadow 0.2s, transform 0.2s;
+            margin: 6px;
+            white-space: nowrap;
         }
+
         .button:hover {
-            transform: scale(1.05);
+            transform: translateY(-1px);
+            box-shadow:
+                0 2px 4px rgba(0, 0, 0, 0.15),
+                0 6px 12px rgba(0, 0, 0, 0.2);
         }
+
+        .button.primary {
+            background: var(--md-primary);
+            color: var(--md-on-primary);
+        }
+
+        .button.secondary {
+            background: var(--md-secondary);
+            color: var(--md-on-secondary);
+        }
+
+        .button.tertiary {
+            background: var(--md-tertiary-container);
+            color: var(--md-on-tertiary-container);
+        }
+
         .fallback {
-            margin-top: 40px;
+            margin-top: 32px;
             padding: 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            font-size: 0.9em;
+            background: var(--md-secondary-container);
+            border-radius: 20px;
+            text-align: center;
         }
+
+        .fallback p {
+            margin: 8px 0;
+            font-size: 0.9rem;
+            color: #49454f;
+        }
+
         .playlist-id {
-            font-family: monospace;
-            background: rgba(0,0,0,0.2);
-            padding: 5px 10px;
-            border-radius: 5px;
+            margin: 12px auto;
             display: inline-block;
-            margin: 10px 0;
+            padding: 10px 14px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            background: var(--md-surface);
+            border-radius: 12px;
+            border: 1px solid var(--md-outline);
+            color: var(--md-on-surface);
+            user-select: all;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="icon">🎵</div>
+
         <h1>Fihirana Playlist</h1>
-        <div class="message" id="message">Opening playlist in Fihirana app...</div>
-        
-        <a href="#" id="openButton" class="button" style="display:none;">Open in Fihirana</a>
-        
+
+        <div class="message" id="message">
+            Opening playlist in Fihirana app…
+        </div>
+
+        <a
+            href="#"
+            id="openButton"
+            class="button primary"
+            style="display: none;"
+        >
+            Open in Fihirana
+        </a>
+
         <div class="fallback">
             <p><strong>App not installed?</strong></p>
-            <a href="https://play.google.com/store/apps/details?id=com.manasseh.fihirana_jff" class="button">Download Fihirana</a>
-            
-            <p style="margin-top: 30px;"><strong>Or import manually:</strong></p>
+
+            <a
+                href="https://play.google.com/store/apps/details?id=com.manasseh.fihirana_jff"
+                class="button secondary"
+            >
+                Download Fihirana from Store
+            </a>
+
+            <a
+                href="https://github.com/manasseh-randriamitsiry/fihirana-JFF/releases"
+                class="button tertiary"
+            >
+                Download Fihirana from Git
+            </a>
+
+            <p style="margin-top: 24px;">
+                <strong>Or import manually</strong>
+            </p>
+
             <div class="playlist-id" id="playlistId"></div>
-            <p style="font-size: 0.85em; opacity: 0.8;">Copy this ID and use "Import Playlist" in the app</p>
+
+            <p style="font-size: 0.8rem;">
+                Copy this ID and use <em>Import Playlist</em> in the app
+            </p>
         </div>
     </div>
 
+    <!-- SCRIPT IS UNTOUCHED -->
     <script>
         // Get playlist ID from URL parameter
         const urlParams = new URLSearchParams(window.location.search);
@@ -103,11 +210,14 @@
             
             // Show manual button after 3 seconds if auto-redirect didn't work
             setTimeout(() => {
-                document.getElementById('message').textContent = "Didn't open automatically?";
-                document.getElementById('openButton').style.display = 'inline-block';
+                document.getElementById('message').textContent =
+                    "Didn't open automatically?";
+                document.getElementById('openButton').style.display =
+                    'inline-flex';
             }, 3000);
         } else {
-            document.getElementById('message').textContent = "Invalid playlist link";
+            document.getElementById('message').textContent =
+                "Invalid playlist link";
         }
     </script>
 </body>
